@@ -10,7 +10,7 @@ public interface SymTabEntry {
     public String getName();
     public SymTab getSymTab();
     public void appendLineNumber(int lineNumber);
-    public ArrayList<SymTab> getLineNumbers();
+    public ArrayList<Integer> getLineNumbers();
     void setAttribute(SymTabKey key, Object value);
     public Object getAttribute(SymTabKey key);
 }
