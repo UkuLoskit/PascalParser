@@ -10,6 +10,8 @@ import com.ukuloskit.mylang.message.MessageType;
 
 import java.io.IOException;
 
+import static com.ukuloskit.mylang.frontend.pascal.PascalErrorCode.IO_ERROR;
+
 public class PascalParserTD extends Parser {
     public PascalParserTD(Scanner scanner) {
         super(scanner);
@@ -26,7 +28,7 @@ public class PascalParserTD extends Parser {
             while (!((token = nextToken()) instanceof EofToken)) {
                 TokenType tokenType = token.getType();
 
-                if (tokenType == TokenType.ERROR) {
+                if (tokenType == PascalTokenType.ERROR) {
                     sendMessage(new Message(
                             MessageType.TOKEN,
                             new Object[]{
@@ -65,6 +67,6 @@ public class PascalParserTD extends Parser {
 
     @Override
     public int getErrorCount() {
-        errorHandler.getErrorCount();
+        return errorHandler.getErrorCount();
     }
 }

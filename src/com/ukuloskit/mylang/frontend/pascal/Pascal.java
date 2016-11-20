@@ -15,6 +15,8 @@ import com.ukuloskit.mylang.message.MessageType;
 import java.io.BufferedReader;
 import java.io.FileReader;
 
+import static com.ukuloskit.mylang.frontend.pascal.PascalTokenType.STRING;
+
 
 public class Pascal {
     private Parser parser;
