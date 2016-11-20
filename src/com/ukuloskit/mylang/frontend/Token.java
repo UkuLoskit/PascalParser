@@ -18,7 +18,7 @@ public class Token {
         extract();
     }
 
-    protected void extract() throws IOException {
+    protected void extract() throws IOException, Exception {
        text = Character.toString(currentChar());
         value = null;
         nextChar();
@@ -41,6 +41,18 @@ public class Token {
 
     public TokenType getType() {
         return type;
+    }
+
+    public Object getValue() {
+        return value;
+    }
+
+    public int getPosition() {
+        return position;
+    }
+
+    public String getText() {
+        return text;
     }
 
 }

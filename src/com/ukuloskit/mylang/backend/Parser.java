@@ -4,6 +4,8 @@ import com.ukuloskit.mylang.intermediate.SymTab;
 import com.ukuloskit.mylang.frontend.Token;
 import com.ukuloskit.mylang.frontend.Scanner;
 import com.ukuloskit.mylang.intermediate.ICode;
+import com.ukuloskit.mylang.intermediate.SymTabFactory;
+import com.ukuloskit.mylang.intermediate.SymTabStack;
 import com.ukuloskit.mylang.message.Message;
 import com.ukuloskit.mylang.message.MessageHandler;
 import com.ukuloskit.mylang.message.MessageListener;
@@ -12,11 +14,13 @@ import com.ukuloskit.mylang.message.MessageProducer;
 public abstract class Parser implements MessageProducer {
 
     protected static SymTab symTab;
+    protected static SymTabStack symTabStack;
     protected static MessageHandler messageHandler;
 
     static {
         symTab = null;
         messageHandler = new MessageHandler();
+        symTabStack = SymTabFactory.createSymTabStack();
     }
 
     protected Parser(Scanner scanner) {

@@ -5,6 +5,7 @@ import com.ukuloskit.mylang.backend.BackendFactory;
 import com.ukuloskit.mylang.backend.Parser;
 import com.ukuloskit.mylang.frontend.FrontendFactory;
 import com.ukuloskit.mylang.frontend.Source;
+import com.ukuloskit.mylang.frontend.TokenType;
 import com.ukuloskit.mylang.intermediate.ICode;
 import com.ukuloskit.mylang.intermediate.SymTab;
 import com.ukuloskit.mylang.message.Message;
@@ -74,18 +75,60 @@ public class Pascal {
             "\n%,20d syntax errors";
 //            "\n%,20d.2f seconds total parsing time.\n";
 
+    private static final String TOKEN_FORMAT =
+            ">>> %-15s line=%03d, pos=%2d, text=\"%s\"";
+    private static final String VALUE_FORMAT =
+            ">>>                   value=%s";
+    private static final int PREFIX_WIDTH = 5;
+
     private class ParserMessageListener implements MessageListener {
 
         @Override
         public void messageReceived(Message message) {
             MessageType type = message.getType();
-            Object body[] = (Object []) message.getBody();
 
+            Object body[] = (Object []) message.getBody();
             switch (type) {
+                case TOKEN: {
+                    int line = (Integer) body[0];
+                    int position = (Integer) body[1];
+                    TokenType tokenType = (TokenType) body[2];
+                    String tokenText = (String) body[3];
+                    Object tokenValue = body[4];
+
+                    System.out.println(String.format(TOKEN_FORMAT, tokenType, line, position, tokenText));
+                    if (tokenValue != null) {
+                        if (tokenType == STRING) {
+                            tokenValue = "\"" + tokenValue + "\"";
+                        }
+                        System.out.println(String.format(VALUE_FORMAT, tokenValue));
+
+                    }
+                    break;
+                }
+                case SYNTAX_ERROR: {
+                    int lineNumber = (Integer) body[0];
+                    int position = (Integer) body[1];
+                    String tokenText = (String) body[2];
+                    String errorMessage = (String) body[3];
+                    int spaceCount = PREFIX_WIDTH + position;
+                    StringBuilder flagBuffer = new StringBuilder();
+                    for (int i = 1; i < spaceCount; ++i) {
+                       flagBuffer.append(' ');
+                    }
+                    flagBuffer.append("^\n*** ").append(errorMessage);
+                    if (tokenText != null) {
+                        flagBuffer.append("");
+
+                    }
+                    break;
+
+                }
                 case PARSER_SUMMARY:
                     int statementCount = (Integer) body[0];
                     int syntaxErrors = (Integer) body[1];
                     System.out.println(String.format(PARSER_SUMMARY_FORMAT, statementCount, syntaxErrors));
+                    break;
             }
 
         }
@@ -124,9 +167,7 @@ public class Pascal {
                     System.out.printf(COMPILER_SUMMARY_FORMAT, executionCount, instructionsGenerated);
 
                 }
-
             }
-
         }
     }
 

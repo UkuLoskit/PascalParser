@@ -8,6 +8,8 @@ import com.ukuloskit.mylang.frontend.TokenType;
 import com.ukuloskit.mylang.message.Message;
 import com.ukuloskit.mylang.message.MessageType;
 
+import java.io.IOException;
+
 public class PascalParserTD extends Parser {
     public PascalParserTD(Scanner scanner) {
         super(scanner);
@@ -19,34 +21,50 @@ public class PascalParserTD extends Parser {
     public void parse() throws Exception {
         Token token;
         long startTime = System.currentTimeMillis();
-        while (!((token = nextToken()) instanceof EofToken)) {
-            TokenType tokenType = token.getType();
 
-            if (tokenType = TokenType.ERROR) {
+        try {
+            while (!((token = nextToken()) instanceof EofToken)) {
+                TokenType tokenType = token.getType();
 
+                if (tokenType == TokenType.ERROR) {
+                    sendMessage(new Message(
+                            MessageType.TOKEN,
+                            new Object[]{
+                                    token.getLineNumber(),
+                                    token.getPosition(),
+                                    tokenType,
+                                    token.getText(),
+                                    token.getValue()
+                            }
 
-            } else {
-               errorHandler.flag(token, (PascalErrorCode))
+                    ));
+
+                } else {
+                    errorHandler.flag(token, (PascalErrorCode) token.getValue(),
+                            this);
+                }
+
             }
 
+            float elapsedTime = (System.currentTimeMillis() - startTime) / 1000f;
+            sendMessage(
+                    new Message(
+                            MessageType.PARSER_SUMMARY,
+                            new Number[]{
+                                    token.getLineNumber(),
+                                    getErrorCount(),
+                                    elapsedTime
+                            }
+                    )
+            );
+        } catch (IOException ex) {
+            errorHandler.abortTranslation(IO_ERROR, this);
         }
-
-        float elapsedTime = (System.currentTimeMillis() - startTime) / 1000f;
-        sendMessage(
-            new Message(
-                MessageType.PARSER_SUMMARY,
-                    new Number[] {
-                            token.getLineNumber(),
-                            getErrorCount(),
-                            elapsedTime
-                    }
-            )
-        );
 
     }
 
     @Override
     public int getErrorCount() {
-        return 0;
+        errorHandler.getErrorCount();
     }
 }
