@@ -31,6 +31,10 @@ public abstract class Parser implements MessageProducer {
     protected Scanner scanner;
     protected ICode iCode;
 
+    public SymTabStack getSymTabStack() {
+        return symTabStack;
+    }
+
     public void addMessageListener(MessageListener listener) {
         messageHandler.addListener(listener);
     }

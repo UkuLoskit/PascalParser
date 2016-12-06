@@ -4,9 +4,6 @@ import com.ukuloskit.mylang.intermediate.symtabimpl.SymTabEntryImpl;
 import com.ukuloskit.mylang.intermediate.symtabimpl.SymTabImpl;
 import com.ukuloskit.mylang.intermediate.symtabimpl.SymTabStackImpl;
 
-/**
- * Created by uku on 20.11.16.
- */
 public class SymTabFactory {
     public static SymTabStack createSymTabStack() {
         return new SymTabStackImpl();

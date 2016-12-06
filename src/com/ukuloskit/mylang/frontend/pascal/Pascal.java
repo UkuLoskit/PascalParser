@@ -8,9 +8,11 @@ import com.ukuloskit.mylang.frontend.Source;
 import com.ukuloskit.mylang.frontend.TokenType;
 import com.ukuloskit.mylang.intermediate.ICode;
 import com.ukuloskit.mylang.intermediate.SymTab;
+import com.ukuloskit.mylang.intermediate.SymTabStack;
 import com.ukuloskit.mylang.message.Message;
 import com.ukuloskit.mylang.message.MessageListener;
 import com.ukuloskit.mylang.message.MessageType;
+import com.ukuloskit.mylang.util.CrossReferencer;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -26,6 +28,7 @@ public class Pascal {
     private Backend backend;
 
     private static final String SOURCE_LINE_FORMAT = "%03d %s";
+    private SymTabStack symTabStack;
 
     public Pascal(String operation, String filePath, String flags) {
         try {
@@ -42,6 +45,13 @@ public class Pascal {
            backend.addMessageListener(new BackendMessageListener());
 
            parser.parse();
+
+            symTabStack = parser.getSymTabStack();
+            if (xref) {
+                CrossReferencer crossReferencer = new CrossReferencer();
+                crossReferencer.print(symTabStack);
+            }
+            backend.process(iCode, symTabStack);
            source.close();
 
            iCode = parser.getIcode();
