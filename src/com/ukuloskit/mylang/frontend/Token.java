@@ -10,7 +10,7 @@ public class Token {
     protected int lineNum;
     protected int position;
 
-    public Token(Source source) throws IOException {
+    public Token(Source source) throws Exception {
         this.source = source;
         this.lineNum = source.getLineNum();
         this.position = source.getPosition();

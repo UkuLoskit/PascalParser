@@ -52,7 +52,7 @@ public enum PascalTokenType implements TokenType {
     private String text;
 
     PascalTokenType() {
-        this.toString().toLowerCase();
+        this.text = this.toString().toLowerCase();
     }
 
     PascalTokenType(String text) {

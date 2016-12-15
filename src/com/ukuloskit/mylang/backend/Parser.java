@@ -66,4 +66,8 @@ public abstract class Parser implements MessageProducer {
     public SymTab getSymTab() {
         return symTab;
     }
+
+    public Scanner getScanner() {
+        return scanner;
+    }
 }

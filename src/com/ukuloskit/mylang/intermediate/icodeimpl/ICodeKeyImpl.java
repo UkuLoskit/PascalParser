@@ -1,5 +1,7 @@
 package com.ukuloskit.mylang.intermediate.icodeimpl;
 
-public enum ICodeKeyImpl {
+import com.ukuloskit.mylang.intermediate.ICodeKey;
+
+public enum ICodeKeyImpl implements ICodeKey {
    LINE, ID, VALUE;
 }
