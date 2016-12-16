@@ -152,15 +152,14 @@ public class Pascal {
         }
     }
 
-
     private static final String INTERPRETER_SUMMARY_FORMAT =
-        "\n%s,20d statements executed" +
-        "\n%s,20d runtime errors" +
-        "\n%s,20d.2f seconds total execution time.\n";
+        "\n%,20d statements executed" +
+        "\n%,20d runtime errors" +
+        "\n%,20.2f seconds total execution time.\n";
 
     private static final String COMPILER_SUMMARY_FORMAT =
-        "\n%s,20d instructions generated" +
-        "\n%s,20d.2f seconds code generation time.\n";
+        "\n%,20d instructions generated" +
+        "\n%,20.2f seconds code generation time.\n";
 
     private class BackendMessageListener implements MessageListener {
 
@@ -176,6 +175,7 @@ public class Pascal {
                     float elapsedTime = (Float) body[2];
 
                     System.out.printf(INTERPRETER_SUMMARY_FORMAT, executionCount, runtimeErrors, elapsedTime);
+                    break;
                 }
                 case COMPILER_SUMMARY: {
                     Number body[] = ((Number[]) message.getBody());
@@ -183,6 +183,7 @@ public class Pascal {
                     int instructionsGenerated = (Integer) body[1];
 
                     System.out.printf(COMPILER_SUMMARY_FORMAT, executionCount, instructionsGenerated);
+                    break;
 
                 }
             }
