@@ -49,6 +49,8 @@ public class Pascal {
 
            symTabStack = parser.getSymTabStack();
 
+           backend.process(iCode, symTab);
+
            iCode = parser.getIcode();
            symTab = parser.getSymTab();
            if (xref) {
@@ -57,10 +59,9 @@ public class Pascal {
            }
 
            if (intermediate) {
-               ParseTreePrinter treePrinter = new ParseTreePrinter(System.out);
-               treePrinter.print(iCode);
+                ParseTreePrinter treePrinter = new ParseTreePrinter(System.out);
+                treePrinter.print(iCode);
            }
-           backend.process(iCode, symTab);
            source.close();
 
         } catch (Exception ex) {
@@ -172,7 +173,7 @@ public class Pascal {
                     Number body[] = ((Number[]) message.getBody());
                     int executionCount = (Integer) body[0];
                     int runtimeErrors = (Integer) body[1];
-                    float elapsedTime = (Integer) body[2];
+                    float elapsedTime = (Float) body[2];
 
                     System.out.printf(INTERPRETER_SUMMARY_FORMAT, executionCount, runtimeErrors, elapsedTime);
                 }
