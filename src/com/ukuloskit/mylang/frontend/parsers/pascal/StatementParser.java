@@ -32,7 +32,7 @@ public class StatementParser extends PascalParserTD {
                 break;
             case IDENTIFIER:
                 AssignmentStatementParser assignmentStatementParser =
-                        new AssignmentStateParser(this);
+                        new AssignmentStatementParser(this);
                 statementNode = assignmentStatementParser.parse(token);
                 break;
             default:
