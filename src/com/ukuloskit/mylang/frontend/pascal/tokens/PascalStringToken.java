@@ -10,7 +10,7 @@ import static com.ukuloskit.mylang.frontend.pascal.PascalTokenType.ERROR;
 import static com.ukuloskit.mylang.frontend.pascal.PascalTokenType.STRING;
 
 public class PascalStringToken extends PascalToken {
-    public PascalStringToken(Source source) throws IOException {
+    public PascalStringToken(Source source) throws Exception {
         super(source);
     }
 

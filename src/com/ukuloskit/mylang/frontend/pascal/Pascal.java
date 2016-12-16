@@ -13,6 +13,7 @@ import com.ukuloskit.mylang.message.Message;
 import com.ukuloskit.mylang.message.MessageListener;
 import com.ukuloskit.mylang.message.MessageType;
 import com.ukuloskit.mylang.util.CrossReferencer;
+import com.ukuloskit.mylang.util.ParseTreePrinter;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -46,17 +47,21 @@ public class Pascal {
 
            parser.parse();
 
-            symTabStack = parser.getSymTabStack();
-            if (xref) {
-                CrossReferencer crossReferencer = new CrossReferencer();
-                crossReferencer.print(symTabStack);
-            }
-            backend.process(iCode, symTabStack);
-           source.close();
+           symTabStack = parser.getSymTabStack();
 
            iCode = parser.getIcode();
            symTab = parser.getSymTab();
+           if (xref) {
+                CrossReferencer crossReferencer = new CrossReferencer();
+                crossReferencer.print(symTabStack);
+           }
 
+           if (intermediate) {
+               ParseTreePrinter treePrinter = new ParseTreePrinter(System.out);
+               treePrinter.print(iCode);
+           }
+           backend.process(iCode, symTab);
+           source.close();
 
         } catch (Exception ex) {
             ex.printStackTrace();

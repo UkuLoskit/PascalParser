@@ -14,7 +14,7 @@ import static com.ukuloskit.mylang.frontend.pascal.PascalTokenType.ERROR;
 public class PascalErrorToken extends PascalToken {
 
     public PascalErrorToken(Source source, PascalErrorCode errorCode,
-                            String tokenText) throws IOException {
+                            String tokenText) throws Exception {
         super(source);
         this.text = tokenText;
         this.type = ERROR;

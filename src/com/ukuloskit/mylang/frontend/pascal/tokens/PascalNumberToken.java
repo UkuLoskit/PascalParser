@@ -14,7 +14,7 @@ import static com.ukuloskit.mylang.frontend.pascal.PascalTokenType.REAL;
 import static java.lang.Float.MAX_EXPONENT;
 
 public class PascalNumberToken extends Token {
-    public PascalNumberToken(Source source) throws IOException {
+    public PascalNumberToken(Source source) throws Exception {
         super(source);
     }
 

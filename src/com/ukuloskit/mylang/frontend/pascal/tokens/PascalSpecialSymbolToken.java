@@ -10,7 +10,7 @@ import static com.ukuloskit.mylang.frontend.pascal.PascalTokenType.ERROR;
 import static com.ukuloskit.mylang.frontend.pascal.PascalTokenType.SPECIAL_SYMBOLS;
 
 public class PascalSpecialSymbolToken extends Token {
-    public PascalSpecialSymbolToken(Source source) throws IOException {
+    public PascalSpecialSymbolToken(Source source) throws Exception {
         super(source);
     }
 

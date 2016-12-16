@@ -6,7 +6,7 @@ import com.ukuloskit.mylang.frontend.Token;
 import java.io.IOException;
 
 public class PascalToken extends Token {
-    public PascalToken(Source source) throws IOException {
+    public PascalToken(Source source) throws Exception {
         super(source);
     }
 }

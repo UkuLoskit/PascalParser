@@ -13,7 +13,7 @@ import static com.ukuloskit.mylang.frontend.pascal.PascalTokenType.RESERVED_WORD
  */
 public class PascalWordToken extends PascalToken {
 
-    public PascalWordToken(Source source) throws IOException {
+    public PascalWordToken(Source source) throws Exception {
         super(source);
     }
 
