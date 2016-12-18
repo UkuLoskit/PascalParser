@@ -46,23 +46,24 @@ public class Pascal {
            backend.addMessageListener(new BackendMessageListener());
 
            parser.parse();
-
-           symTabStack = parser.getSymTabStack();
-
-           backend.process(iCode, symTab);
+           source.close();
 
            iCode = parser.getIcode();
            symTab = parser.getSymTab();
-           if (xref) {
-                CrossReferencer crossReferencer = new CrossReferencer();
-                crossReferencer.print(symTabStack);
-           }
+           symTabStack = parser.getSymTabStack();
 
-           if (intermediate) {
-                ParseTreePrinter treePrinter = new ParseTreePrinter(System.out);
-                treePrinter.print(iCode);
-           }
-           source.close();
+//            if (xref) {
+//                CrossReferencer crossReferencer = new CrossReferencer();
+//                crossReferencer.print(symTabStack);
+//            }
+
+//            if (intermediate) {
+//                ParseTreePrinter treePrinter = new ParseTreePrinter(System.out);
+//                treePrinter.print(iCode);
+//            }
+
+           backend.process(iCode, symTab);
+
 
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -209,9 +210,6 @@ public class Pascal {
             }
             if (i < args.length) {
                 String path = args[i];
-                System.out.println(operation);
-                System.out.println(path);
-                System.out.println(flags);
                 new Pascal(operation, path, flags);
             }
         } catch (Exception ex) {

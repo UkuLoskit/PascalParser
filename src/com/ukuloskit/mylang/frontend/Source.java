@@ -32,7 +32,7 @@ public class Source implements MessageProducer {
 
     private void readLine() throws IOException {
         line = reader.readLine();
-        currentPos = 0;
+        currentPos = -1;
 
         if (line != null) {
             ++lineNum;
@@ -43,7 +43,7 @@ public class Source implements MessageProducer {
 
     public char currentChar() throws IOException {
         if (currentPos == -2) {
-           readLine();
+            readLine();
             return nextChar();
         } else if (line == null) {
             return EOF;
