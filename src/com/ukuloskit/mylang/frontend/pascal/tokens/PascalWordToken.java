@@ -8,9 +8,6 @@ import java.io.IOException;
 import static com.ukuloskit.mylang.frontend.pascal.PascalTokenType.IDENTIFIER;
 import static com.ukuloskit.mylang.frontend.pascal.PascalTokenType.RESERVED_WORDS;
 
-/**
- * Created by uku on 18.11.16.
- */
 public class PascalWordToken extends PascalToken {
 
     public PascalWordToken(Source source) throws Exception {

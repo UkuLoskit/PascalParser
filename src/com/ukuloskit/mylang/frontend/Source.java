@@ -42,12 +42,14 @@ public class Source implements MessageProducer {
     }
 
     public char currentChar() throws IOException {
+        // at the very beginning of the file
         if (currentPos == -2) {
             readLine();
             return nextChar();
         } else if (line == null) {
             return EOF;
         } else if ((currentPos == -1) || (currentPos == line.length())) {
+            // after reading a line
             return EOL;
         } else if (currentPos > line.length()) {
             readLine();
