@@ -126,7 +126,6 @@ public class Pascal {
                     break;
                 }
                 case SYNTAX_ERROR: {
-                    int lineNumber = (Integer) body[0];
                     int position = (Integer) body[1];
                     String tokenText = (String) body[2];
                     String errorMessage = (String) body[3];
@@ -137,9 +136,9 @@ public class Pascal {
                     }
                     flagBuffer.append("^\n*** ").append(errorMessage);
                     if (tokenText != null) {
-                        flagBuffer.append("");
-
+                        flagBuffer.append(" [at\"").append(tokenText).append("\"]");
                     }
+                    System.out.println(flagBuffer.toString());
                     break;
 
                 }
